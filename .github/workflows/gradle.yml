@@ -10,7 +10,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     - run: ./gradlew spotlessJavaCheck
-  operator-tests:
+  jar:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -18,4 +18,4 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - run: ./gradlew test --tests com.dbms.operators.physical.*
+    - run: ./gradlew jar
