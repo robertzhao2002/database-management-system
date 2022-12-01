@@ -1,7 +1,7 @@
 name: Gradle Tasks
 on: [ push ]
 jobs:
-  formatting:
+  sanity-checks:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -10,12 +10,5 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     - run: ./gradlew spotlessJavaCheck
-  jar:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
     - run: ./gradlew jar
+    
