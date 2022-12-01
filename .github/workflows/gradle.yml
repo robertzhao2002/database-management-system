@@ -1,7 +1,7 @@
 name: Gradle Tasks
 on: [ push ]
 jobs:
-  formatting:
+  set-up:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -9,4 +9,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+  formatting:
     - run: ./gradlew spotlessJavaCheck
+  operator-tests:
+    - run: ./gradlew test --tests com.dbms.operators.physical.*
