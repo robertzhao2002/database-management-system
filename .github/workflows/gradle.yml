@@ -16,10 +16,5 @@ jobs:
     - name: Compile Java Code
       run: ./gradlew assemble
     - name: Unit Tests
-      run: mkdir temp
-      run: mkdir output
-      run: mkdir output/big
-      run: mkdir output/joins
-      run: mkdir output/indexed
-      run: ./gradlew test
+      run: mkdir temp && mkdir output && mkdir output/big && mkdir output/joins && mkdir output/indexed && ./gradlew test
     
