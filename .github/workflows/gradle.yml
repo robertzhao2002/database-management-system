@@ -17,4 +17,9 @@ jobs:
       run: ./gradlew assemble
     - name: Unit Tests
       run: mkdir temp && mkdir output && mkdir output/big && mkdir output/joins && mkdir output/indexed && ./gradlew test
+    - name: Upload JAR Artifact
+      uses: actions/upload-artifact@v3
+      with: 
+        name: JAR File
+        path: build/libs/dbms.jar
     
