@@ -3,6 +3,7 @@ package com.dbms;
 import com.dbms.queryplan.LogicalPlanBuilder;
 import com.dbms.queryplan.PhysicalPlanBuilder;
 import com.dbms.utils.Catalog;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
@@ -43,7 +44,7 @@ public class Interpreter {
         BufferedReader fileReader = Catalog.getQueriesFile();
         int i = 1;
         String currentQuery;
-        while ((currentQuery = fileReader.readLine()) != null) executeQuery(currentQuery, i++);
+        while ((currentQuery = BoundedLineReader.readLine(fileReader, 5_000_000)) != null) executeQuery(currentQuery, i++);
     }
 
     /** Initializes the catalog with the provided input and output paths, then runs the interpreter.

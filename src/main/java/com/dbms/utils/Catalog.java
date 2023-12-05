@@ -2,6 +2,7 @@ package com.dbms.utils;
 
 import com.dbms.index.Index;
 import com.dbms.index.TreeIndexBuilder;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -76,9 +77,9 @@ public class Catalog {
      * @throws IOException */
     public static void init(String path) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(path));
-        Catalog.input = br.readLine();
-        Catalog.output = br.readLine();
-        Catalog.temp = br.readLine();
+        Catalog.input = BoundedLineReader.readLine(br, 5_000_000);
+        Catalog.output = BoundedLineReader.readLine(br, 5_000_000);
+        Catalog.temp = BoundedLineReader.readLine(br, 5_000_000);
         br.close();
         schema = getSchema(Catalog.input);
         INDEXES = getIndexInfo(readerFromPath(Catalog.input, "db", "index_info.txt"));
@@ -96,7 +97,7 @@ public class Catalog {
     private static Map<String, List<Index>> getIndexInfo(BufferedReader br) throws IOException {
         Map<String, List<Index>> indexes = new HashMap<>();
         String line;
-        while ((line = br.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
             String info[] = line.split(" ");
             String table = info[0];
             String column = info[1];
@@ -124,7 +125,7 @@ public class Catalog {
         Map<String, List<Attribute>> schemaMap = new HashMap<>();
         BufferedReader schemaBr = readerFromPath(input, "db", "schema.txt");
         String line;
-        while ((line = schemaBr.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(schemaBr, 5_000_000)) != null) {
             StringTokenizer table = new StringTokenizer(line, " ");
             String tableName = table.nextToken();
             List<Attribute> attributes = new LinkedList<>();
